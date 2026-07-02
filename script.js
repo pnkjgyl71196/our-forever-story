@@ -161,24 +161,17 @@ async function saveResponse() {
 
         console.log(SCRIPT_URL);
 
-        const response =
-            await fetch(
-                SCRIPT_URL,
-                {
+      await fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+        "Content-Type": "text/plain"
+    },
+    body: JSON.stringify(payload)
+});
 
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-                    },
-
-                    body:
-                        JSON.stringify(data)
-
-                }
-            );
-
+document.getElementById("saveStatus").innerText =
+    "❤️ Response submitted successfully!";
         console.log(
             "HTTP STATUS:",
             response.status
