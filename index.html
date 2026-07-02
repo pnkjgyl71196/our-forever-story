@@ -5,16 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Beginning of Our Forever Story ❤️</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  /* Magical overlay for the YES button celebration */
+  .celebration-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 240, 245, 0.95);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.6s ease;
+  }
+  .celebration-overlay.active { opacity: 1; pointer-events: auto; }
+  .celebration-box { text-align: center; animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  
+  /* Floating elements for the Hug button pop-up */
+  .floating-pop {
+    position: fixed; font-size: 5rem; pointer-events: none; z-index: 10000;
+    animation: floatUpAway 2s forwards ease-out;
+  }
+  @keyframes floatUpAway {
+    0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(-20vh) scale(1.5) rotate(360deg); opacity: 0; }
+  }
+
+  /* Smooth transition for the escaping No button */
+  .buttons { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+  .no { transition: all 0.2s ease; position: relative; }
+</style>
 </head>
 <body>
 
 <div id="hearts"></div>
 
+<!-- YES CELEBRATION POP-UP MODAL -->
+<div id="yesModal" class="celebration-overlay">
+  <div class="celebration-box">
+    <h1 style="font-size: 3rem; color: #ff4d6d; margin-bottom: 10px;">🎉 FOREVER LOCKED! 💖</h1>
+    <img src="assets/panda.svg" style="width: 150px; margin: 15px 0;" alt="Happy Panda">
+    <p style="font-size: 1.5rem; color: #333; font-weight: bold;">You just made your Bunny the luckiest man in the entire universe! 🐻✨</p>
+    <p style="font-size: 1.2rem; color: #666; max-width: 500px; margin: 15px auto;">Our hands are held, our souls are intertwined, and I promise to love you through every second of this life, my beautiful Jenny. 💍💒</p>
+    <button onclick="closeYesModal()" style="background: #ff4d6d; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(255,77,109,0.4);">Continue to Save Our Memory 📝</button>
+  </div>
+</div>
+
 <section class="hero">
   <div class="hero-content">
     <img src="assets/panda.svg" class="hero-panda" alt="Cute Panda Couple">
-    <h1>To the One My Heart Beats For ❤️</h1>
-    <p class="subtitle">In a universe of billions, my soul found its perfect match in you. Jenny, this is our forever timeline... ✨</p>
+    <h1>To the One I Always Dream Of ❤️</h1>
+    <p class="subtitle">In a universe of infinite possibilities, meeting you and knowing you has been my greatest miracle. This is our story... ✨</p>
     <button onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">Begin Our Story ✨</button>
   </div>
 </section>
@@ -65,12 +104,13 @@
   </div>
 </section>
 
-<!-- NEW SECTION: Deepening the Emotional Connection -->
 <section class="section layers-of-love">
   <h2>A Love Deeper Than the Ocean 🌊</h2>
-  <div class="story-card text-center">
-    <p>Jenny, my love for you isn't just a feeling; it is an anchor. I love you on the sunny, bright days when everything is easy, and I will love you even harder on the cloudy days when life gets heavy. I want to hold your hand through the years, watch you grow, and achieve every single dream you have tucked away in your heart.</p>
-    <blockquote>"I don't just want you for today or tomorrow. I am asking for your whole life, your whole heart, and all your beautiful quirks. Will you promise to stay by my side through it all?" 🥺💞</blockquote>
+  <div class="story-card text-center" style="text-align: center;">
+    <p>Jenny, my love for you isn't just a fleeting emotion; it is my life's anchor. I love you on the sunny, bright days when everything is easy, and I promise to love you even harder on the cloudy days when life gets heavy. I want to hold your hand through the moving years, watch you conquer the world, and protect your happiness with everything I have.</p>
+    <blockquote style="font-style: italic; background: #fff0f5; padding: 15px; border-left: 5px solid #ff4d6d; margin: 20px 0; border-radius: 4px;">
+      "I don't just want you for today, tomorrow, or a season. I am asking for your whole life, your whole heart, and all your beautiful moments. Will you promise to stay by my side through it all?" 🥺💞
+    </blockquote>
   </div>
 </section>
 
@@ -116,10 +156,10 @@
   <h1>Will You Marry Your Bunny and Stay By My Side Lifelong? 🐻💍</h1>
 
   <div class="buttons">
-    <button class="yes" onclick="acceptProposal()">YES, Bunny! A Million Times YES! ❤️</button>
-    <button class="hug" onclick="showHug()">Hold Me First, Bunny... and bite me! 🤗🦷</button>
-    <!-- Playful No Button that points back to her destiny -->
-    <button class="no" onclick="alert('Hehe, wrong button! Try again, my beautiful Jenny! 😉❤️')">No 😢</button>
+    <button class="yes" onclick="handleYesClick()">YES, Bunny! A Million Times YES! ❤️</button>
+    <button class="hug" onclick="handleHugClick()">Hold Me First, Bunny... and bite me! 🤗🦷</button>
+    <!-- Out of click range + run away action combined safely -->
+    <button class="no" id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">No 😢</button>
   </div>
 
   <div id="result"></div>
@@ -127,7 +167,7 @@
 
 <section class="section response-section">
   <h2>📝 Seal Our Story & Save the Memory</h2>
-  <p class="section-sub">Write down your answer, how you feel, or a message to your Bunny below, then click to download and keep this memory locked in time forever.</p>
+  <p class="section-sub">Write down your answer, how you feel, or a beautiful message to your Bunny below, then click to download and keep this memory locked in time forever.</p>
   <input type="text" id="name" placeholder="Your Name (Jenny ❤️)">
   <textarea id="message" placeholder="Write the thoughts of your heart... Let your Bunny know how much you love him..."></textarea>
 
@@ -142,6 +182,53 @@
 <footer>
   Handcrafted with boundless love, forever and always, for the owner of my heart. 💖
 </footer>
+
+<!-- SYSTEM SCRIPTS TO EXECUTE ADVANCED ACTIONS WITHOUT CHANGING SCRIPT.JS -->
+<script>
+  // 1. Runaway / Out of Click Range "No" Button
+  function moveNoButton() {
+    const btn = document.getElementById('noBtn');
+    // Generates a random layout shift away from the cursor's range
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth - 100);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight - 100);
+    
+    btn.style.position = 'fixed';
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
+  }
+
+  // 2. "Hold Me First" Action: Pops up open-mouth emojis and cute representations
+  function handleHugClick() {
+    // Call your original external script function so background logs run fine
+    if (typeof showHug === "function") { showHug(); }
+    
+    // Generate bursting emojis (Open mouths 😮, hugs 🤗, and pretty girl representations 👧✨)
+    const elements = ['😮', '🤗', '👧✨', '🦷💖', '💖', '🐰'];
+    for (let i = 0; i < 15; i++) {
+      setTimeout(() => {
+        const pop = document.createElement('div');
+        pop.className = 'floating-pop';
+        pop.innerText = elements[Math.floor(Math.random() * elements.length)];
+        pop.style.left = (Math.random() * 80 + 10) + 'vw';
+        document.body.appendChild(pop);
+        
+        // Cleanup element after animation passes
+        setTimeout(() => pop.remove(), 2000);
+      }, i * 100);
+    }
+  }
+
+  // 3. "YES Button" Action: Spawns the custom full-screen celebration modal
+  function handleYesClick() {
+    if (typeof acceptProposal === "function") { acceptProposal(); }
+    document.getElementById('yesModal').classList.add('active');
+  }
+
+  function closeYesModal() {
+    document.getElementById('yesModal').classList.remove('active');
+    document.getElementById('message').scrollIntoView({behavior:'smooth'});
+  }
+</script>
 
 <script src="script.js"></script>
 </body>
