@@ -230,32 +230,33 @@
   }
 </script>
 
-
 <script>
-const SCRIPT_URL="https://docs.google.com/spreadsheets/d/1Wn-9lndekFLP4ZZgLw55hSp23WRjxhDp7DjAJFFFSS4/edit?gid=0#gid=0";
+const SCRIPT_URL="PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL_HERE";
 async function saveResponse(){
- const proposalResponse=document.getElementById("result").innerText||"No response selected";
+ const response=document.getElementById("result")?.innerText||"No response selected";
  const name=document.getElementById("name").value.trim();
  const message=document.getElementById("message").value.trim();
- if(!name||!message){alert("Please enter your name and message ❤️");return;}
+ const payload={proposalResponse:response,name,message,time:new Date().toISOString()};
+ console.log("==== Proposal Debug Start ====");
+ console.log("Script URL:",SCRIPT_URL);
+ console.log("Payload:",payload);
+ if(!name||!message){console.warn("Validation failed");alert("Please enter your name and message.");return;}
  document.getElementById("saveStatus").innerText="Sending...";
  try{
-  await fetch(SCRIPT_URL,{method:"POST",body:JSON.stringify({proposalResponse,name,message,time:new Date().toISOString()})});
-  document.getElementById("saveStatus").innerText="❤️ Your message has been delivered to Bunny forever! ❤️";
- }catch(e){document.getElementById("saveStatus").innerText="Unable to send message.";}
+  const res=await fetch(SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+  console.log("HTTP Status:",res.status);
+  const body=await res.text();
+  console.log("Response:",body);
+  document.getElementById("saveStatus").innerText="Delivered!";
+ }catch(e){
+  console.error("Fetch Error:",e);
+  document.getElementById("saveStatus").innerText="Unable to send.";
+ }
+ console.log("==== Proposal Debug End ====");
 }
-const _yes=handleYesClick;
-handleYesClick=function(){
- document.getElementById("result").innerText="💖 YES! I want to spend my forever with you! 💖";
- _yes();
-}
-const _hug=handleHugClick;
-handleHugClick=function(){
- document.getElementById("result").innerText="🤗 Hold me first Bunny! ❤️";
- _hug();
-}
+const __y=handleYesClick;handleYesClick=function(){console.log("YES clicked");document.getElementById("result").innerText="YES";__y();}
+const __h=handleHugClick;handleHugClick=function(){console.log("HUG clicked");document.getElementById("result").innerText="HUG";__h();}
 </script>
-
 <script src="script.js"></script>
 </body>
 </html>
