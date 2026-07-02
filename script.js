@@ -2,8 +2,6 @@
  * CONFIGURATION
  ****************************************************/
 
-const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbyPBiWQFc8JvNcl0XpfGtItyUptstMvc7loZ8Ge6uRkdZyC0DACNtJFzPK4iN0NVEOZNw/exec";
 
 /****************************************************
  * HEART REVEAL
