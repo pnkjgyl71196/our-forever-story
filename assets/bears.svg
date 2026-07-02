@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">
+  <rect width="320" height="180" rx="20" fill="#fff7fb"/>
+  <g transform="translate(40,20)">
+    <circle cx="60" cy="60" r="42" fill="#c98b5b"/>
+    <circle cx="32" cy="32" r="14" fill="#c98b5b"/>
+    <circle cx="88" cy="32" r="14" fill="#c98b5b"/>
+    <circle cx="60" cy="72" r="18" fill="#f5d7b5"/>
+    <circle cx="46" cy="58" r="4" fill="#222"/>
+    <circle cx="74" cy="58" r="4" fill="#222"/>
+    <circle cx="60" cy="68" r="4" fill="#222"/>
+    <path d="M50 82 Q60 90 70 82" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="46" cy="76" rx="4" ry="2" fill="#ffb6c1"/>
+    <ellipse cx="74" cy="76" rx="4" ry="2" fill="#ffb6c1"/>
+    <circle cx="60" cy="128" r="32" fill="#c98b5b"/>
+    <circle cx="36" cy="126" r="12" fill="#c98b5b"/>
+    <circle cx="84" cy="126" r="12" fill="#c98b5b"/>
+    <circle cx="48" cy="154" r="12" fill="#8b5e3c"/>
+    <circle cx="72" cy="154" r="12" fill="#8b5e3c"/>
+  </g>
+  <g transform="translate(180,20)">
+    <circle cx="60" cy="60" r="42" fill="#c98b5b"/>
+    <circle cx="32" cy="32" r="14" fill="#c98b5b"/>
+    <circle cx="88" cy="32" r="14" fill="#c98b5b"/>
+    <circle cx="60" cy="72" r="18" fill="#f5d7b5"/>
+    <circle cx="46" cy="58" r="4" fill="#222"/>
+    <circle cx="74" cy="58" r="4" fill="#222"/>
+    <circle cx="60" cy="68" r="4" fill="#222"/>
+    <path d="M50 82 Q60 90 70 82" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="46" cy="76" rx="4" ry="2" fill="#ffb6c1"/>
+    <ellipse cx="74" cy="76" rx="4" ry="2" fill="#ffb6c1"/>
+    <circle cx="60" cy="128" r="32" fill="#c98b5b"/>
+    <circle cx="36" cy="126" r="12" fill="#c98b5b"/>
+    <circle cx="84" cy="126" r="12" fill="#c98b5b"/>
+    <circle cx="48" cy="154" r="12" fill="#8b5e3c"/>
+    <circle cx="72" cy="154" r="12" fill="#8b5e3c"/>
+  </g>
+  <path d="M150 70 C145 58,132 58,126 70 C120 82,130 92,150 110 C170 92,180 82,174 70 C168 58,155 58,150 70Z" fill="#ff4d8d"/>
+</svg>
