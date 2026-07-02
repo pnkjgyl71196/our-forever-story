@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Forever Story ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="hearts"></div>
+
+<section class="hero">
+  <div class="hero-content">
+    <img src="assets/panda.svg" class="hero-panda" alt="Cute Panda Couple">
+    <h1>For The Love Of My Life ❤️</h1>
+    <p class="subtitle">A little story that leads to one big question...</p>
+    <button onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">Begin Our Story ✨</button>
+  </div>
+</section>
+
+<section id="story" class="section">
+  <h2>🌸 Once Upon A Time</h2>
+  <div class="story-card">
+    <p>Among billions of people, destiny somehow guided me to <span class="highlight">you</span>.</p>
+    <p>You became my happiness, my peace, and my favorite person in this entire world.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>🐼 Our Journey</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="icon">✨</div>
+      <div>
+        <h3>The Day We Met</h3>
+        <p>The day my ordinary life became extraordinary.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="icon">☕</div>
+      <div>
+        <h3>Our First Conversation</h3>
+        <p>A simple conversation that I never wanted to end.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="icon">❤️</div>
+      <div>
+        <h3>The Moment I Knew</h3>
+        <p>I realized I wanted every tomorrow to include you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>💖 Reasons I Love You</h2>
+  <p class="section-sub">Tap the hearts to discover them</p>
+  <div class="reasons">
+    <div class="reason" onclick="reveal(this,'Your beautiful smile')">❤️</div>
+    <div class="reason" onclick="reveal(this,'Your kind heart')">❤️</div>
+    <div class="reason" onclick="reveal(this,'The way you care')">❤️</div>
+    <div class="reason" onclick="reveal(this,'Your laughter')">❤️</div>
+    <div class="reason" onclick="reveal(this,'Your support')">❤️</div>
+    <div class="reason" onclick="reveal(this,'Everything about you')">❤️</div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>🌙 My Promises</h2>
+  <div class="promises">
+    <div class="promise">⭐ I will always respect you.</div>
+    <div class="promise">⭐ I will always listen to you.</div>
+    <div class="promise">⭐ I will support every dream you chase.</div>
+    <div class="promise">⭐ I will never stop making you smile.</div>
+    <div class="promise">⭐ I will stand beside you through every challenge.</div>
+    <div class="promise">⭐ I will love you more with every passing year.</div>
+  </div>
+</section>
+
+<section class="section letter">
+  <img src="assets/bears.svg" class="bears" alt="Cute Teddy Bears">
+  <h2>💌 A Letter From My Heart</h2>
+  <p>My Love,</p>
+  <p>Life became more meaningful the day you entered it. You are my best friend, my safe place, and the person I want to share every little moment with.</p>
+  <p>No matter what life brings, I promise to celebrate your happiness, support your dreams, hold your hand through difficult times, and love you with all my heart.</p>
+  <p>Because loving you is the most beautiful part of who I am.</p>
+</section>
+
+<section class="proposal">
+  <img src="assets/ring.svg" class="ring" alt="Proposal Ring">
+  <h2>You are my today, my tomorrow, and my forever ❤️</h2>
+  <h1>Will You Marry Me?</h1>
+
+  <div class="buttons">
+    <button class="yes" onclick="acceptProposal()">YES ❤️</button>
+    <button class="hug" onclick="showHug()">Hug Me First 🤗</button>
+  </div>
+
+  <div id="result"></div>
+</section>
+
+<section class="section response-section">
+  <h2>📝 Your Response</h2>
+  <input type="text" id="name" placeholder="Your Name">
+  <textarea id="message" placeholder="Write how you feel..."></textarea>
+
+  <div class="response-buttons">
+    <button onclick="saveResponse()">Save Response 💾</button>
+    <button onclick="downloadResponse()">Download Memory 📄</button>
+  </div>
+
+  <p id="saveStatus"></p>
+</section>
+
+<footer>
+  Made with ❤️ for the most special person in my life.
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
