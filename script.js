@@ -3,7 +3,7 @@
  ***********************************************/
 
 const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbyPBiWQFc8JvNcl0XpfGtItyUptstMvc7loZ8Ge6uRkdZyC0DACNtJFzPK4iN0NVEOZNw/exec";
+"https://script.google.com/macros/s/AKfycbzrP6j07_EPCevgTt8oNi5VZApbUYS4c0EHkX6kXochxkdxylKr-FfPWS50Qu7fYSPn/exec";
 
 /************************************************
  * Reveal Hearts
