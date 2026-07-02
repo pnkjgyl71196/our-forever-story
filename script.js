@@ -1,11 +1,13 @@
-/****************************************************
- * CONFIGURATION
- ****************************************************/
+/************************************************
+ * Configuration
+ ***********************************************/
 
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyPBiWQFc8JvNcl0XpfGtItyUptstMvc7loZ8Ge6uRkdZyC0DACNtJFzPK4iN0NVEOZNw/exec";
 
-/****************************************************
- * HEART REVEAL
- ****************************************************/
+/************************************************
+ * Reveal Hearts
+ ***********************************************/
 
 function reveal(el, text) {
 
@@ -17,11 +19,13 @@ function reveal(el, text) {
 
 }
 
-/****************************************************
- * HEART BURST
- ****************************************************/
+/************************************************
+ * Floating Hearts
+ ***********************************************/
 
 function createHeartBurst(count = 25) {
+
+    const holder = document.getElementById("hearts");
 
     for (let i = 0; i < count; i++) {
 
@@ -30,88 +34,104 @@ function createHeartBurst(count = 25) {
         heart.className = "heart";
 
         heart.innerHTML =
-            ["❤️", "💖", "💕", "💗"][Math.floor(Math.random() * 4)];
+            ["❤️","💕","💖","💗"][Math.floor(Math.random()*4)];
 
-        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.left = Math.random()*100 + "vw";
         heart.style.bottom = "-20px";
-        heart.style.fontSize = (16 + Math.random() * 24) + "px";
-        heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+        heart.style.fontSize =
+            (16 + Math.random()*24) + "px";
 
-        document.getElementById("hearts").appendChild(heart);
+        heart.style.animationDuration =
+            (4 + Math.random()*3) + "s";
 
-        setTimeout(() => heart.remove(), 7000);
+        holder.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),7000);
+
     }
 
 }
 
-/****************************************************
+/************************************************
  * YES
- ****************************************************/
+ ***********************************************/
 
-function acceptProposal() {
+function acceptProposal(){
 
-    console.log("❤️ YES clicked");
+    console.log("YES Clicked");
 
     createHeartBurst(60);
 
     document.getElementById("result").innerHTML =
-        "YES ❤️ Forever Begins Today!";
+    "YES ❤️ Forever Begins Today!";
 
 }
 
-/****************************************************
+/************************************************
  * HUG
- ****************************************************/
+ ***********************************************/
 
-function showHug() {
+function showHug(){
 
-    console.log("🤗 HUG clicked");
+    console.log("HUG Clicked");
 
     createHeartBurst(20);
 
     document.getElementById("result").innerHTML =
-        "HUG ❤️ Give me the biggest hug first!";
+    "HUG ❤️";
 
 }
 
-/****************************************************
+/************************************************
  * SAVE RESPONSE
- ****************************************************/
+ ***********************************************/
 
-async function saveResponse() {
+async function saveResponse(){
 
     console.clear();
 
-    console.log("=======================================");
-    console.log("SAVE RESPONSE STARTED");
-    console.log("=======================================");
+    console.log("================================");
+    console.log("SAVE RESPONSE");
+    console.log("================================");
 
-    const data = {
+    const name =
+        document.getElementById("name").value.trim();
 
-        name:
-            document.getElementById("name").value || "My Love",
+    const message =
+        document.getElementById("message").value.trim();
 
-        message:
-            document.getElementById("message").value,
+    const proposalResponse =
+        document.getElementById("result").innerText || "";
 
-        proposalResponse:
-            document.getElementById("result").innerText,
+    if(name===""){
 
-        accepted:
-            document
-                .getElementById("result")
-                .innerText
-                .toUpperCase()
-                .includes("YES"),
+        alert("Please enter your name ❤️");
 
-        date:
-            new Date().toLocaleString(),
+        return;
 
-        browser:
-            navigator.userAgent,
+    }
 
-        page:
-            window.location.href
+    if(message===""){
+
+        alert("Please write a message ❤️");
+
+        return;
+
+    }
+
+    const data={
+
+        name:name,
+
+        message:message,
+
+        proposalResponse:proposalResponse,
+
+        date:new Date().toLocaleString(),
+
+        browser:navigator.userAgent,
+
+        url:window.location.href
 
     };
 
@@ -119,210 +139,119 @@ async function saveResponse() {
 
     console.table(data);
 
-    /**************
-     Local Backup
-     **************/
+    /*******************
+     Save locally
+    ********************/
 
     localStorage.setItem(
         "ourForeverStory",
         JSON.stringify(data)
     );
 
-    console.log("✔ Saved locally.");
+    document.getElementById("saveStatus").innerHTML =
+    "Sending... ❤️";
 
-    if (
-        SCRIPT_URL.includes(
-            "PASTE_YOUR_SCRIPT_ID"
-        )
-    ) {
+    try{
 
-        console.error(
-            "Apps Script URL missing."
-        );
+        console.log("Sending request");
 
-        document.getElementById(
-            "saveStatus"
-        ).innerHTML =
-            "❌ Configure SCRIPT_URL first.";
+        await fetch(SCRIPT_URL,{
 
-        return;
-    }
+            method:"POST",
 
-    document.getElementById(
-        "saveStatus"
-    ).innerHTML =
-        "Sending your beautiful message ❤️";
+            mode:"no-cors",
 
-    try {
+            headers:{
+                "Content-Type":"text/plain"
+            },
 
-        console.log(
-            "Sending POST request..."
-        );
+            body:JSON.stringify(data)
 
-        console.log(SCRIPT_URL);
+        });
 
-      await fetch(SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-        "Content-Type": "text/plain"
-    },
-    body: JSON.stringify(payload)
-});
+        console.log("Request Sent");
 
-document.getElementById("saveStatus").innerText =
-    "❤️ Response submitted successfully!";
-        console.log(
-            "HTTP STATUS:",
-            response.status
-        );
-
-        const text =
-            await response.text();
-
-        console.log(
-            "SERVER RESPONSE:"
-        );
-
-        console.log(text);
-
-        if (response.ok) {
-
-            document.getElementById(
-                "saveStatus"
-            ).innerHTML =
-                "❤️ Response delivered successfully to Bunny ❤️";
-
-            console.log(
-                "SUCCESS"
-            );
-
-        } else {
-
-            document.getElementById(
-                "saveStatus"
-            ).innerHTML =
-                "Server returned an error.";
-
-            console.error(
-                "Server Error"
-            );
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "FETCH ERROR"
-        );
-
-        console.error(error);
-
-        document.getElementById(
-            "saveStatus"
-        ).innerHTML =
-            "❌ Failed to send response.";
+        document.getElementById("saveStatus").innerHTML =
+        "❤️ Response submitted successfully! ❤️";
 
     }
+    catch(err){
 
-    console.log(
-        "SAVE RESPONSE FINISHED"
-    );
+        console.error(err);
+
+        document.getElementById("saveStatus").innerHTML =
+        "❌ Unable to submit response.";
+
+    }
 
 }
 
-/****************************************************
+/************************************************
  * DOWNLOAD
- ****************************************************/
+ ***********************************************/
 
-function downloadResponse() {
+function downloadResponse(){
 
     const saved =
-        localStorage.getItem(
-            "ourForeverStory"
-        );
+        localStorage.getItem("ourForeverStory");
 
-    if (!saved) {
+    if(!saved){
 
-        alert(
-            "Please save a response first."
-        );
+        alert("Please save your response first.");
 
         return;
 
     }
 
     const blob =
-        new Blob(
-            [saved],
-            {
-                type:
-                    "application/json"
-            }
-        );
+        new Blob([saved],{
+            type:"application/json"
+        });
 
     const url =
-        URL.createObjectURL(
-            blob
-        );
+        URL.createObjectURL(blob);
 
     const a =
-        document.createElement(
-            "a"
-        );
+        document.createElement("a");
 
-    a.href = url;
+    a.href=url;
 
-    a.download =
-        "our-forever-memory.json";
+    a.download="our-forever-memory.json";
 
     a.click();
 
-    URL.revokeObjectURL(
-        url
-    );
+    URL.revokeObjectURL(url);
 
 }
 
-/****************************************************
- * AUTO LOAD
- ****************************************************/
+/************************************************
+ * LOAD
+ ***********************************************/
 
-window.onload = function () {
+window.onload=function(){
 
-    console.log(
-        "Website Loaded"
-    );
+    console.log("Website Loaded");
 
     const saved =
-        localStorage.getItem(
-            "ourForeverStory"
-        );
+        localStorage.getItem("ourForeverStory");
 
-    if (saved) {
-
-        console.log(
-            "Loading previous response."
-        );
+    if(saved){
 
         const data =
             JSON.parse(saved);
 
-        document.getElementById(
-            "name"
-        ).value =
+        document.getElementById("name").value =
             data.name || "";
 
-        document.getElementById(
-            "message"
-        ).value =
+        document.getElementById("message").value =
             data.message || "";
 
     }
 
-    setInterval(
-        () => createHeartBurst(3),
-        3000
-    );
+    setInterval(function(){
+
+        createHeartBurst(3);
+
+    },3000);
 
 };
